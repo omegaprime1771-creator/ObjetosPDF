@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reporte - Objetos Malditos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<!-- se abre y lanza imprimir automáticamente -->
+<body onload="window.print()">
+  <div class="container mt-5">
+    <h1 class="text-center border-bottom pb-3">REPORTE DE OBJETOS MALDITOS</h1>
+
+    <table class="table table-bordered mt-4">
+      <thead>
+        <tr>
+          <th>Objeto</th>
+          <th>Año</th>
+          <th>Nivel</th>
+          <th>Limpieza (años)</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-print">
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const datos = JSON.parse(localStorage.getItem('objetosMalditosPrint'));
+    const tabla = document.getElementById('tabla-print');
+
+    if (datos && datos.length > 0) {
+      datos.forEach(item => {
+        tabla.innerHTML += `
+          <tr>
+            <td>${item.maldicion}</td>
+            <td>${item.fecha}</td>
+            <td>${item.nivel}</td>
+            <td>${item.limpieza}</td>
+          </tr>
+        `;
+      });
+    } else {
+      tabla.innerHTML = `
+        <tr>
+          <td colspan="4" class="text-center">No hay datos para imprimir</td>
+        </tr>
+      `;
+    }
+  </script>
+</body>
+</html>
